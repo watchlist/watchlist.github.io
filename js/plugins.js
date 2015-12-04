@@ -325,7 +325,7 @@ window.matchMedia || (window.matchMedia = function() {
                 u.text("");
                 o.show();
 				var signups = new Firebase('https://tarkus.firebaseio.com/signups');
-				signups.push({ email: h, domain: 'watchlist.io' }, function(err) {
+				signups.push({ email: h, domain: 'watchlist.io', date: Firebase.ServerValue.TIMESTAMP }, function(err) {
 					if (err) {
 						r.addClass("error");
 						o.hide();
