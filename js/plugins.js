@@ -324,44 +324,24 @@ window.matchMedia || (window.matchMedia = function() {
                 e(this).removeClass("error success");
                 u.text("");
                 o.show();
-                e.ajax({
-                    type: "POST",
-                    url: s,
-                    data: {
-                        email: h
-                    },
-                    dataType: "json",
-                    error: function(e) {
-                        r.addClass("error");
-                        o.hide();
-                        a.removeClass();
-                        a.addClass(c);
-                        if (e.status == 404) {
-                            u.text(n.msgError404)
-                        } else {
-                            u.text(n.msgError503)
-                        }
-                    }
-                }).done(function(e) {
-                    o.hide();
-                    if (e.status == "success") {
-                        r.addClass("success-full").removeClass("bad-email");
-                        a.removeClass(f);
+				var signups = new Firebase('https://tarkus.firebaseio.com/signups');
+				signups.push({ email: h, domain: 'watchlist.io' }, function(err) {
+					if (err) {
+						r.addClass("error");
+						o.hide();
+						a.removeClass(l);
+						a.addClass(c);
+						u.text(n.msgError503);
+						console.warn(err);
+					} else {
+						r.addClass("success-full").removeClass("bad-email");
+						a.removeClass(f);
 						a.removeClass(c);
-                        a.addClass(l);
-                        u.text(n.msgSuccess);
-                        i.val(null);
-                    } else {
-                        r.addClass("error");
-                        a.removeClass(l);
-                        a.addClass(c);
-                        if (e.type == "ValidationError") {
-                            u.text(n.msgErrorValidation)
-                        } else {
-                            u.text(n.msgError503)
-                        }
-                    }
-                })
+						a.addClass(l);
+						u.text(n.msgSuccess);
+						i.val(null);
+					}
+				});
             } else {
                 e(this).addClass("bad-email");
                 o.hide();
