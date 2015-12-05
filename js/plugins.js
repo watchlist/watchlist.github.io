@@ -333,7 +333,7 @@ window.matchMedia || (window.matchMedia = function() {
 						a.addClass(c);
 						u.text(n.msgError503);
 						console.warn(err);
-						ga('send', 'event', 'Signups', 'signup');
+						ga('send', 'exception', { message: err.message });
 					} else {
 						r.addClass("success-full").removeClass("bad-email");
 						a.removeClass(f);
@@ -341,7 +341,7 @@ window.matchMedia || (window.matchMedia = function() {
 						a.addClass(l);
 						u.text(n.msgSuccess);
 						i.val(null);
-						ga('send', 'exception', { message: err.message });
+						ga('send', 'event', 'Signups', 'signup');
 					}
 				});
             } else {
